@@ -1,4 +1,6 @@
-class A extends State {
+package state;
+
+public class A extends State {
     public void on() {
         System.out.println("A + on  = C");
     }

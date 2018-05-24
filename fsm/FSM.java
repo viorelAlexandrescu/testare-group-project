@@ -1,7 +1,12 @@
 package fsm;
 
+import state.A;
+import state.B;
+import state.C;
+import state.State;
+
 // 1. Create a "wrapper" class that models the state machine
-class FSM {
+public class FSM {
     // 2. states
     private State[] states = {new A(), new B(), new C()};
     // 4. transitions
