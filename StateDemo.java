@@ -1,17 +1,19 @@
 import fsm.FSM;
+import state.State;
 
+// TODO implement demon star FSM and
+// create parse tests for 2 different states with a certain input ($1 2 abaab)
+// show outputs -- and a message if there are different results
 public class StateDemo {
-    public static void main(String[] args) {
-        FSM fsm = new FSM();
-        int[] msgs = {2, 1, 2, 1, 0, 2, 0, 0};
-        for (int msg : msgs) {
-            if (msg == 0) {
-                fsm.on();
-            } else if (msg == 1) {
-                fsm.off();
-            } else if (msg == 2) {
-                fsm.ack();
-            }
-        }
-    }
+	public static void main(String[] args) {
+		FSM fsm = new FSM(Integer.parseInt(args[0]),
+				new State[] { new State("S1"), new State("S2"), new State("S3"), new State("S4"), new State("S5") });
+		
+		FSM fsm1 = new FSM(Integer.parseInt(args[1]),
+				new State[] { new State("S1"), new State("S2"), new State("S3"), new State("S4"), new State("S5") });
+		
+		System.out.println(fsm.getOutput(args[2]));
+		System.out.println();
+		System.out.println(fsm1.getOutput(args[2]));
+	}
 }

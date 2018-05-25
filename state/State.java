@@ -2,16 +2,14 @@ package state;
 
 // 6. Create a state base class that makes the concrete states interchangeable
 // 7. The State base class specifies default behavior
-public abstract class State {
-    public void on() {
-        System.out.println("error");
+public class State {
+    private String stateName;
+    
+    public State(String stateName) {
+    	this.stateName = stateName;
     }
 
-    public void off() {
-        System.out.println("error");
-    }
-
-    public void ack() {
-        System.out.println("error");
-    }
+	public String getStateName() {
+		return stateName;
+	}
 }

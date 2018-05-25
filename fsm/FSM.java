@@ -1,36 +1,68 @@
 package fsm;
 
-import state.A;
-import state.B;
-import state.C;
 import state.State;
 
 // 1. Create a "wrapper" class that models the state machine
 public class FSM {
-    // 2. states
-    private State[] states = {new A(), new B(), new C()};
-    // 4. transitions
-    private int[][] transition = {{2,1,0}, {0,2,1}, {1,2,2}};
-    // 3. current
-    private int current = 0;
+	// 2. states
+	private State[] states;
 
-    private void next(int msg) {
-        current = transition[current][msg];
-    }
+	private int currentState;
 
-    // 5. All client requests are simply delegated to the current state object
-    public void on() {
-        states[current].on();
-        next(0);
-    }
+	public FSM(int initialState, State[] states) {
+		this.states = states;
+		this.currentState = initialState;
+	}
 
-    public void off() {
-        states[current].off();
-        next(1);
-    }
+	public String getOutput(String input) {
+		StringBuilder builder = new StringBuilder();
+		System.out.println("Input is " + input);
+		System.out.println("Initial state is " + states[currentState].getStateName());
+		for (char c : input.toCharArray()) {
+			System.out.println("For input: " + c);
+			switch (currentState) {
+			case 0:
+				if(c == 'a') {
+					builder.append('0');
+					currentState = 1;
+				} else {
+					builder.append('1');
+				}
+				break;
+			case 1:
+				if(c == 'a') {
+					builder.append('0');
+				} else {
+					builder.append('1');
+					currentState = 3;
+				}
+				break;
+			case 2:
+				if(c == 'a') {
+					builder.append('1');
+				} else {
+					builder.append('0');
+					currentState = 0;
+				}
+				break;
+			case 3:
+				if(c == 'a') {
+					currentState = 4;
+				}
+				builder.append('0');
+				break;
+			case 4:
+				if(c == 'a') {
+					builder.append('0');
+					currentState = 2;
+				} else {
+					builder.append('1');
+				}
+				break;
+			}
+			System.out.println("Current state is " + states[currentState].getStateName());
+		}
+		return builder.toString();
+	}
 
-    public void ack() {
-        states[current].ack();
-        next(2);
-    }
 }
